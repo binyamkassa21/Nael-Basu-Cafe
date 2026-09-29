@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nael & Basu Cafe – Menu</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+    :root {
+      --bg: #faf7f2;
+      --card: #ffffff;
+      --text: #2c2a26;
+      --muted: #6b6560;
+      --accent: #8b5e3c;
+      --accent-light: #c4a484;
+      --border: #e8e0d5;
+      --shadow: 0 4px 20px rgba(139, 94, 60, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #3d2b1f 0%, #5c4033 100%);
+      color: #f5efe6;
+      text-align: center;
+      padding: 3.5rem 1.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+      position: relative;
+    }
+
+    .tagline {
+      font-size: 1.05rem;
+      opacity: 0.85;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      position: relative;
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--muted);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Main content */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1.75rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--accent-light);
+      display: inline-block;
+    }
+
+    .category {
+      margin-bottom: 2.5rem;
+    }
+
+    .category-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .menu-list {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.15rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s ease;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item:hover {
+      background: #fdf9f4;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .item-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .item-price {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header {
+        padding: 2.5rem 1rem 2rem;
+      }
+      .menu-item {
+        padding: 1rem 1.1rem;
+      }
+      .item-name {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Nael & Basu Cafe</div>
+    <p class="tagline">Artisan coffee • Fresh food • Good vibes</p>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <button class="nav-btn active" data-section="drinks">Drinks</button>
+      <button class="nav-btn" data-section="food">Food</button>
+      <button class="nav-btn" data-section="desserts">Desserts</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- DRINKS -->
+    <section id="drinks" class="section active">
+      <h2 class="section-title">Drinks</h2>
+
+      <div class="category">
+        <div class="category-name">Coffee</div>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Espresso</div>
+              <div class="item-desc">Rich, bold single shot</div>
+            </div>
+            <div class="item-price">$2.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Americano</div>
+              <div class="item-desc">Espresso with hot water</div>
+            </div>
+            <div class="item-price">$3.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Cappuccino</div>
+              <div class="item-desc">Espresso, steamed milk & foam</div>
+            </div>
+            <div class="item-price">$3.75</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Café Latte</div>
+              <div class="item-desc">Smooth espresso with steamed milk</div>
+            </div>
+            <div class="item-price">$4.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Flat White</div>
+              <div class="item-desc">Velvety microfoam over double espresso</div>
+            </div>
+            <div class="item-price">$4.25</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Mocha</div>
+              <div class="item-desc">Espresso, chocolate & steamed milk</div>
+            </div>
+            <div class="item-price">$4.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Iced Latte</div>
+              <div class="item-desc">Chilled espresso over ice with milk</div>
+            </div>
+            <div class="item-price">$4.25</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Cold Brew</div>
+              <div class="item-desc">Slow-steeped, smooth & refreshing</div>
+            </div>
+            <div class="item-price">$4.00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="category-name">Tea & More</div>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">English Breakfast Tea</div>
+              <div class="item-desc">Classic black tea</div>
+            </div>
+            <div class="item-price">$2.75</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Green Tea</div>
+              <div class="item-desc">Light & refreshing</div>
+            </div>
+            <div class="item-price">$2.75</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Chamomile</div>
+              <div class="item-desc">Soothing herbal infusion</div>
+            </div>
+            <div class="item-price">$2.75</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Matcha Latte</div>
+              <div class="item-desc">Ceremonial grade matcha with milk</div>
+            </div>
+            <div class="item-price">$4.75</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Fresh Orange Juice</div>
+              <div class="item-desc">Freshly squeezed</div>
+            </div>
+            <div class="item-price">$3.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Sparkling Water</div>
+              <div class="item-desc">Chilled mineral water</div>
+            </div>
+            <div class="item-price">$2.00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOD -->
+    <section id="food" class="section">
+      <h2 class="section-title">Food</h2>
+
+      <div class="category">
+        <div class="category-name">Breakfast & Brunch</div>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Avocado Toast</div>
+              <div class="item-desc">Sourdough, smashed avocado, chili flakes, poached egg</div>
+            </div>
+            <div class="item-price">$8.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Eggs Benedict</div>
+              <div class="item-desc">Poached eggs, hollandaise, English muffin, ham</div>
+            </div>
+            <div class="item-price">$11.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Pancake Stack</div>
+              <div class="item-desc">Fluffy buttermilk pancakes, maple syrup, berries</div>
+            </div>
+            <div class="item-price">$9.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Granola Bowl</div>
+              <div class="item-desc">House granola, Greek yogurt, seasonal fruit, honey</div>
+            </div>
+            <div class="item-price">$7.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Breakfast Burrito</div>
+              <div class="item-desc">Scrambled eggs, cheese, salsa, avocado wrap</div>
+            </div>
+            <div class="item-price">$9.00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="category-name">Sandwiches & Salads</div>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Club Sandwich</div>
+              <div class="item-desc">Chicken, bacon, lettuce, tomato, mayo on toasted bread</div>
+            </div>
+            <div class="item-price">$10.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Caprese Sandwich</div>
+              <div class="item-desc">Fresh mozzarella, tomato, basil, balsamic glaze</div>
+            </div>
+            <div class="item-price">$9.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Grilled Cheese</div>
+              <div class="item-desc">Three cheeses on sourdough, served with tomato soup</div>
+            </div>
+            <div class="item-price">$8.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Caesar Salad</div>
+              <div class="item-desc">Romaine, parmesan, croutons, classic dressing</div>
+            </div>
+            <div class="item-price">$9.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Garden Salad</div>
+              <div class="item-desc">Mixed greens, cucumber, tomato, carrots, vinaigrette</div>
+            </div>
+            <div class="item-price">$8.00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESSERTS -->
+    <section id="desserts" class="section">
+      <h2 class="section-title">Desserts</h2>
+
+      <div class="category">
+        <div class="category-name">Sweet Treats</div>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Chocolate Brownie</div>
+              <div class="item-desc">Warm fudgy brownie with vanilla ice cream</div>
+            </div>
+            <div class="item-price">$5.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Cheesecake Slice</div>
+              <div class="item-desc">New York style with berry compote</div>
+            </div>
+            <div class="item-price">$6.00</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Tiramisu</div>
+              <div class="item-desc">Classic Italian coffee dessert</div>
+            </div>
+            <div class="item-price">$6.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Croissant</div>
+              <div class="item-desc">Buttery, flaky French pastry</div>
+            </div>
+            <div class="item-price">$3.50</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Banana Bread</div>
+              <div class="item-desc">Moist house-baked slice</div>
+            </div>
+            <div class="item-price">$3.75</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-info">
+              <div class="item-name">Cookie of the Day</div>
+              <div class="item-desc">Ask our barista for today’s special</div>
+            </div>
+            <div class="item-price">$2.50</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Nael & Basu Cafe · Open daily 7am – 6pm</p>
+    <p style="margin-top: 0.4rem;">Made with ☕ · Ready for GitHub Pages</p>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.section');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Show matching section
+        const target = btn.dataset.section;
+        sections.forEach(sec => {
+          sec.classList.toggle('active', sec.id === target);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
